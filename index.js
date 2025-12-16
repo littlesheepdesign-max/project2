@@ -49,7 +49,7 @@ async function fetchQuote() {
 
   try {
     // Use ZenQuotes random quotes endpoint
-    const res = await fetch("https://zenquotes.io/api/quotes/random");
+    const res = await fetch("https://project2-worker.littlesheepdesign.workers.dev/quote");
     if (!res.ok) throw new Error("Quote API error");
 
     const data = await res.json();
@@ -210,4 +210,5 @@ document.addEventListener("DOMContentLoaded", () => {
 	fetchQuote();
   });
 });
+
 
