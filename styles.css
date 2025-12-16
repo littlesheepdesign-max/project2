@@ -28,7 +28,8 @@ body {
 
 .app {
   width: 100%;
-  max-width: 640px;
+  max-width: 880px;
+	padding: 2rem 2.2rem; 
   background: linear-gradient(145deg, rgba(15,23,42,0.98), rgba(15,23,42,0.9));
   border-radius: 1.5rem;
   border: 1px solid rgba(148,163,184,0.25);
@@ -127,8 +128,8 @@ main {
 
 @media (max-width: 720px) {
   .app {
-	padding: 1.25rem 1.1rem 1.35rem;
-	border-radius: 1.25rem;
+	padding: 1.4rem 1.2rem 1.5rem;
+	border-radius: 1.35rem;
   }
 
   header {
@@ -432,3 +433,4 @@ footer a:hover {
 .hidden {
   display: none !important;
 }
+
