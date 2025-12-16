@@ -82,6 +82,44 @@ async function fetchQuote() {
 // -----------------------
 // Weather logic
 // -----------------------
+
+async function fetchLocationName(lat, lon) {
+  try {
+    const url = new URL("https://geocoding-api.open-meteo.com/v1/reverse");
+    url.searchParams.set("latitude", lat);
+    url.searchParams.set("longitude", lon);
+    url.searchParams.set("count", "1");
+    url.searchParams.set("language", "en");
+    url.searchParams.set("format", "json");
+
+    const res = await fetch(url.toString());
+    if (!res.ok) throw new Error("Reverse geocoding error");
+
+    const data = await res.json();
+
+    if (data && data.results && data.results.length > 0) {
+      const r = data.results[0];
+
+      // Try these fields in order
+      const city =
+        r.city ||
+        r.name ||
+        r.admin2 || // county/district
+        r.admin1 || // state/region
+        null;
+      const country = r.country || null;
+
+      if (city && country) return `${city}, ${country}`;
+      if (city) return city;
+      if (country) return country;
+    }
+
+    return null; // fallback will use lat/lon
+  } catch (err) {
+    console.warn("Reverse geocoding failed:", err);
+    return null;
+  }
+}
 async function fetchWeatherForCoords(lat, lon) {
   const statusEl = document.getElementById("weather-status");
   const tempEl = document.getElementById("temp");
@@ -139,8 +177,14 @@ async function fetchWeatherForCoords(lat, lon) {
 	windEl.textContent = `Wind: ${cw.windspeed} km/h`;
 	humidityEl.textContent = `Humidity: ${humidity}`;
 
-	// We don't have free reverse geo here without a key, so just approximate
-	locationEl.textContent = `${lat.toFixed(2)}, ${lon.toFixed(2)}`;
+	// Use Open-Meteo reverse geocoding to get city/country
+	const prettyLocation = await fetchLocationName(lat, lon);
+	if (prettyLocation) {
+	  locationEl.textContent = prettyLocation;
+	} else {
+	  // Fallback to lat/lon if reverse geocoding fails
+	  locationEl.textContent = `${lat.toFixed(2)}, ${lon.toFixed(2)}`;
+	}
 
 	statusEl.classList.add("success");
 	statusEl.textContent = "Weather loaded using your browser location.";
@@ -210,5 +254,4 @@ document.addEventListener("DOMContentLoaded", () => {
 	fetchQuote();
   });
 });
-
 
