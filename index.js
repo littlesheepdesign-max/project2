@@ -83,26 +83,7 @@ async function fetchQuote() {
 // Weather logic
 // -----------------------
 
-async function fetchLocationName(lat, lon) {
-  try {
-    const res = await fetch(
-      `https://project2-worker.littlesheepdesign.workers.dev/reverse-geocode?lat=${lat}&lon=${lon}`
-    );
-    if (!res.ok) throw new Error("Reverse geocoding error");
 
-    const data = await res.json();
-    const city = data.city || null;
-    const country = data.country || null;
-
-    if (city && country) return `${city}, ${country}`;
-    if (city) return city;
-    if (country) return country;
-    return null;
-  } catch (err) {
-    console.warn("Reverse geocoding failed:", err);
-    return null;
-  }
-}
 
 async function fetchWeatherForCoords(lat, lon) {
   const statusEl = document.getElementById("weather-status");
@@ -161,13 +142,9 @@ async function fetchWeatherForCoords(lat, lon) {
 	windEl.textContent = `Wind: ${cw.windspeed} km/h`;
 	humidityEl.textContent = `Humidity: ${humidity}`;
 
-	// Use Open-Meteo reverse geocoding to get city/country
-	const prettyLocation = await fetchLocationName(lat, lon);
-	if (prettyLocation) {
-	  locationEl.textContent = prettyLocation;
-	} else {
+	// Use Open-Meteo 
 	  locationEl.textContent = `${lat.toFixed(2)}, ${lon.toFixed(2)}`;
-	}
+	
 
 
 	statusEl.classList.add("success");
@@ -238,6 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	fetchQuote();
   });
 });
+
 
 
 
