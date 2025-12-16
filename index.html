@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quote & Weather of the Day</title>
+  <meta http-equiv="Cache-Control" content="no-store" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+ 
+</head>
+<body>
+  <div class="app">
+    <div class="app-inner">
+      <header>
+        <div class="title-block">
+          <div class="logo-circle">QW</div>
+          <div>
+            <h1>Quote & Weather of the Day</h1>
+            <div class="subtitle">A tiny demo using free public APIs</div>
+          </div>
+        </div>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          LIVE
+        </div>
+      </header>
+
+      <main>
+        <!-- Quote Card -->
+        <section class="card" aria-labelledby="quote-title">
+          <div class="card-inner">
+            <div class="card-header">
+              <div class="card-title" id="quote-title">
+                <span>Daily Inspiration</span>
+                <span class="pill">
+                  <span>QUOTE</span>
+                </span>
+              </div>
+              <button id="new-quote-btn" type="button">
+                <span class="icon">⟳</span>
+                <span>New Quote</span>
+              </button>
+            </div>
+
+            <div id="quote-content">
+              <div class="quote-text" id="quote-text">
+                Loading an uplifting thought for you…
+              </div>
+              <div class="quote-author" id="quote-author">
+                Please wait a moment.
+              </div>
+              <div class="quote-meta">
+                <div class="chip" id="quote-source">
+                  <span class="chip-dot"></span>
+                  From free public quote API
+                </div>
+                <div class="timestamp" id="quote-time">
+                  —
+                </div>
+              </div>
+              <div id="quote-status" class="status"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Weather Card -->
+        <section class="card" aria-labelledby="weather-title">
+          <div class="card-inner">
+            <div class="card-header">
+              <div class="card-title" id="weather-title">
+                <span>Local Weather</span>
+                <span class="pill">
+                  <span>GEO + OPEN‑METEO</span>
+                </span>
+              </div>
+            </div>
+
+            <div id="weather-content">
+              <div class="weather-main">
+                <div class="weather-icon" id="weather-icon">
+                  ☁
+                </div>
+                <div>
+                  <div class="temp" id="temp">
+                    --<span class="unit">°C</span>
+                  </div>
+                  <div class="weather-desc" id="weather-desc">
+                    Waiting for location permission…
+                  </div>
+                </div>
+              </div>
+
+              <div class="weather-location" id="weather-location">
+                Location: <span>Unknown</span>
+              </div>
+
+              <div class="weather-extra">
+                <div class="mini-pill" id="feels-like-pill">
+                  Feels like: --
+                </div>
+                <div class="mini-pill" id="wind-pill">
+                  Wind: --
+                </div>
+                <div class="mini-pill" id="humidity-pill">
+                  Humidity: --
+                </div>
+              </div>
+
+              <div id="weather-status" class="status"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div>
+          Quote API: <a href="https://api.quotable.io" target="_blank" rel="noopener noreferrer">Quotable</a>
+        </div>
+        <div>
+          Weather API: <a href="https://open-meteo.com" target="_blank" rel="noopener noreferrer">Open‑Meteo</a>
+        </div>
+      </footer>
+    </div>
+  </div>
+  
+  <script src="index.js?v=1.1.0"></script>
+</body>
+</html>
