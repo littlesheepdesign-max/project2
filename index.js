@@ -48,28 +48,34 @@ async function fetchQuote() {
   const statusEl = document.getElementById("quote-status");
 
   try {
-	// Free public quote API (no key required)
-	const res = await fetch("https://api.quotable.io/random");
-	if (!res.ok) throw new Error("Quote API error");
-	const data = await res.json();
+    // Use ZenQuotes random quotes endpoint
+    const res = await fetch("https://zenquotes.io/api/quotes/random");
+    if (!res.ok) throw new Error("Quote API error");
 
-	quoteTextEl.textContent = data.content || "No quote text found.";
-	quoteAuthorEl.textContent = data.author ? `— ${data.author}` : "— Unknown";
-	quoteSourceEl.innerHTML = `
-	  <span class="chip-dot"></span>
-	  Source: Quotable
-	`;
-	quoteTimeEl.textContent = `Updated at ${formatTime()}`;
-	statusEl.classList.remove("error");
-	statusEl.textContent = "";
+    const data = await res.json();
+
+    // The API returns an array of quote objects
+    // We'll just take the first one
+    const quoteObj = Array.isArray(data) && data.length > 0 ? data[0] : data;
+
+    quoteTextEl.textContent = quoteObj.q || "No quote text found.";
+    quoteAuthorEl.textContent = quoteObj.a ? `— ${quoteObj.a}` : "— Unknown";
+    quoteSourceEl.innerHTML = `
+      <span class="chip-dot"></span>
+      Source: ZenQuotes
+    `;
+    quoteTimeEl.textContent = `Updated at ${formatTime()}`;
+    statusEl.classList.remove("error");
+    statusEl.textContent = "";
   } catch (err) {
-	console.error(err);
-	quoteTextEl.textContent = "Could not load a quote right now.";
-	quoteAuthorEl.textContent = "— Please try again.";
-	statusEl.classList.add("error");
-	statusEl.textContent = "Error fetching quote. It might be a network or API issue.";
+    console.error(err);
+    quoteTextEl.textContent = "Could not load a quote right now.";
+    quoteAuthorEl.textContent = "— Please try again.";
+    statusEl.classList.add("error");
+    statusEl.textContent =
+      "Error fetching quote. It might be a network or API issue.";
   } finally {
-	setQuoteLoading(false);
+    setQuoteLoading(false);
   }
 }
 
@@ -204,3 +210,4 @@ document.addEventListener("DOMContentLoaded", () => {
 	fetchQuote();
   });
 });
+
