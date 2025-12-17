@@ -1,3 +1,5 @@
+const WORKER_BASE = "https://project2-worker.littlesheepdesign.workers.dev/";
+
 function formatTime(date = new Date()) {
   return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 }
@@ -35,6 +37,8 @@ function mapWeatherCodeToInfo(code) {
   if ([96,99].includes(code)) return { icon: "⛈️", desc: "thunderstorm with hail" };
   return { icon: "🌡️", desc: "unknown" };
 }
+
+
 
 // -----------------------
 // Quote logic
@@ -79,6 +83,26 @@ async function fetchQuote() {
 // Weather logic
 // -----------------------
 
+async function fetchCityCountryForCoords(latitude, longitude) {
+  try {
+    const url = new URL(`${WORKER_BASE}reverse-geocode`);
+    url.searchParams.set("latitude", latitude);
+    url.searchParams.set("longitude", longitude);
+    url.searchParams.set("localityLanguage", "en");
+
+    const res = await fetch(url.toString());
+    if (!res.ok) {
+      throw new Error("Reverse geocode failed with status " + res.status);
+    }
+
+    const data = await res.json();
+    // Worker returns: { raw: ..., location: { city, country } }
+    return data.location || null;
+  } catch (err) {
+    console.warn("Failed to get city/country:", err);
+    return null;
+  }
+}
 
 
 async function fetchWeatherForCoords(lat, lon) {
@@ -139,8 +163,17 @@ async function fetchWeatherForCoords(lat, lon) {
 	humidityEl.textContent = `Humidity: ${humidity}`;
 
 	// Use Open-Meteo 
-	  locationEl.textContent = `${lat.toFixed(2)}, ${lon.toFixed(2)}`;
-	
+	 // locationEl.textContent = `${lat.toFixed(2)}, ${lon.toFixed(2)}`;
+	 // Try to get City, Country from your Worker (reverse geocode)
+    const loc = await fetchCityCountryForCoords(lat, lon);
+
+    if (loc && loc.city && loc.country) {
+      locationEl.textContent = `${loc.city}, ${loc.country} (${lat.toFixed(2)}, ${lon.toFixed(2)})`;
+    } else {
+      // Fallback: still show lat/lon if reverse geocode fails
+      locationEl.textContent = `${lat.toFixed(2)}, ${lon.toFixed(2)}`;
+    }
+
 
 
 	statusEl.classList.add("success");
@@ -211,6 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	fetchQuote();
   });
 });
+
 
 
 
