@@ -82,23 +82,23 @@ header {
   justify-content: center;
   color: #020617;
   font-weight: 800;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   box-shadow: 0 10px 25px rgba(15,23,42,0.7);
 }
 
 h1 {
-  font-size: 1.05rem;
+  font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: 0.03em;
 }
 
 .subtitle {
-  font-size: 0.75rem;
+  font-size: 1.25rem;
   color: var(--muted);
 }
 
 .badge {
-  font-size: 0.7rem;
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   padding: 0.25rem 0.6rem;
@@ -174,7 +174,7 @@ main {
 }
 
 .card-title {
-  font-size: 0.8rem;
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.13em;
   color: var(--muted);
@@ -184,7 +184,7 @@ main {
 }
 
 .pill {
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   padding: 0.15rem 0.45rem;
   border-radius: 999px;
   background: rgba(15,23,42,0.85);
@@ -200,7 +200,7 @@ button {
   outline: none;
   border-radius: 999px;
   padding: 0.4rem 0.85rem;
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -241,7 +241,7 @@ button[disabled] {
 
 /* Quote section */
 .quote-text {
-  font-size: 1rem;
+  font-size: 1.5rem;
   line-height: 1.55;
   font-weight: 500;
   color: #e5e7eb;
@@ -260,7 +260,7 @@ button[disabled] {
 }
 
 .quote-author {
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--muted);
   text-align: right;
   font-style: italic;
@@ -322,8 +322,8 @@ button[disabled] {
 }
 
 .weather-icon {
-  width: 42px;
-  height: 42px;
+  width: 50px;
+  height: 50px;
   border-radius: 16px;
   background: radial-gradient(circle at 30% 20%, #fef9c3 0, #facc15 35%, #eab308 60%, #7c2d12 100%);
   display: flex;
@@ -334,14 +334,14 @@ button[disabled] {
 }
 
 .weather-desc {
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--muted);
   text-transform: capitalize;
 }
 
 .weather-location {
-  font-size: 0.8rem;
-  margin-bottom: 0.3rem;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .weather-location span {
@@ -433,6 +433,7 @@ footer a:hover {
 .hidden {
   display: none !important;
 }
+
 
 
 
