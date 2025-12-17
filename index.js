@@ -216,12 +216,12 @@ function initWeather() {
 	  statusEl.classList.add("error");
 	  if (err.code === err.PERMISSION_DENIED) {
 		statusEl.textContent =
-		  "Location permission denied. Weather cannot be shown without your approximate location.";
+		  "Weather cannot be shown without your approximate location.";
 	  } else {
 		statusEl.textContent = "Could not get your location.";
 	  }
 	  descEl.textContent = "Location access denied.";
-	  locationEl.textContent = "Permission denied";
+	  locationEl.textContent = "Permission denied. Please reload the page and Allow Location Permission";
 	},
 	{
 	  enableHighAccuracy: false,
@@ -244,6 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	fetchQuote();
   });
 });
+
 
 
 
