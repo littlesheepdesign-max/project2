@@ -60,10 +60,6 @@ async function fetchQuote() {
 
     quoteTextEl.textContent = quoteObj.q || "No quote text found.";
     quoteAuthorEl.textContent = quoteObj.a ? `— ${quoteObj.a}` : "— Unknown";
-    quoteSourceEl.innerHTML = `
-      <span class="chip-dot"></span>
-      Source: ZenQuotes
-    `;
     quoteTimeEl.textContent = `Updated at ${formatTime()}`;
     statusEl.classList.remove("error");
     statusEl.textContent = "";
@@ -215,6 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	fetchQuote();
   });
 });
+
 
 
 
